@@ -1,0 +1,400 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Lecture 4 - Introduction to pandas
+
+#-----------------------Introduccion a Pandas----------------------
+print("                 Introduccion a Pandas")
+# grafica de precios aleatoriamente
+returns = pd.DataFrame(np.random.normal(1.0, 0.03, (100, 10)))
+prices = returns.cumprod()
+prices.plot()
+plt.title('Randomly-generated Prices')
+plt.xlabel('Time')
+plt.ylabel('Price')
+plt.legend(loc=0);
+print()
+
+#-----------------------Estructuras de Datos----------------------
+print("                 Estructuras de Datos")
+print("                       Series")
+# serie: matriz de 1 dimensión con etiquetas que pueden contener
+# cualquier tipo de datos.
+# creamos la serie
+s = pd.Series([1, 2, np.nan, 4, 5])
+print (s)
+
+# nombre de la serie
+print (s.name)      # vacia
+
+# modificamos o creamos un nombre
+s.name = "Super Serie"
+print (s.name)
+
+# muestra el indice de la serie
+print (s.index)
+
+# creamos un indice de fecha
+new_index = pd.date_range("2016-01-01", periods=len(s), freq="D")
+print (new_index)
+
+# modificamos el indice de la serie
+s.index = new_index
+print (s.index)
+print()
+
+#-----------------------Acceder a los elementos de la serie----------------------
+print("                 Acceder a los elementos de la serie")
+# iloc []: acceder a los elementos por índice entero
+# loc []:  acceder al índice de la serie.
+print ("Primer elemento de la serie: ", s.iloc[0])
+print ("Ultimo elemento de la serie: ", s.iloc[len(s)-1])
+
+# particionamos la serie
+print(s.iloc[:2])
+
+# El segmento comienza en el índice de inicio y dará los pasos
+# de paso de tamaño hasta que pase el índice final, sin incluir
+# el final.
+start = 0
+end = len(s) - 1    # no muestra la ultima posicion
+step = 1
+print()
+print(s.iloc[start:end:step])
+
+# invertir la serie
+print()
+print(s.iloc[::-1])
+
+# Esto devuelve una porción de la serie que comienza del penúltimo
+# elemento y termina en el penúltimo elemento
+print()
+print(s.iloc[-2:-4:-1])
+
+# accedemos a una serie usando los valores de su índice
+print(s.loc['2016-01-01'])
+
+# usando mas valores
+print()
+print(s.loc['2016-01-02':'2016-01-04'])
+print()
+
+#-------------------------Indexación Booleana----------------------
+print("                   Indexación Booleana")
+# llamamos la serie que sea mayor estricto que 3
+print (s < 3)
+print()
+
+# recorremos la serie original
+print (s.loc[s < 3])
+print()
+
+# usando operadores logicos
+print (s.loc[(s < 3) & (s > 1)])
+print()
+
+#---------------------Indexación y Serie de tiempo----------------------
+print("               Indexación y Serie de tiempo")
+# serie de tiempo completo
+symbol = "CMG"
+start = "2012-01-01"
+end = "2016-01-01"
+# get_pricing(): obtiene datos de los días de mercado
+prices = get_pricing(symbol, start_date=start, end_date=end, fields="price")
+
+# head : mostrar los primeros elementos de nuestra serie
+print ("\n", type(prices))
+prices.head(5)
+
+# modificando el nombre para nuestra serie temporal
+print ('Old name: ', prices.name)
+prices.name = symbol
+print ('New name: ', prices.name)
+print()
+
+# muestra la serie con sus indices
+# freq: frecuencia indica si los datos son diarios frente a
+# mensuales versus algún otro período
+# tz: que la zona horaria indica en qué entorno local se
+# relaciona este índice
+print (prices.index)
+print()
+
+# muestrea desde estos datos diarios a datos mensuales
+monthly_prices = prices.resample('M')
+print(monthly_prices.head(10))
+print()
+
+# resample(): utiliza de forma predeterminada la media de los datos
+# de nivel inferior para crear los datos de nivel superior.
+monthly_prices_med = prices.resample('M', how='median')
+print(monthly_prices_med.head(10))
+print()
+
+# función custom_resampler(): devolve el primer valor del período.
+# En nuestro caso específico, esto devolverá una serie donde el valor
+# mensual es el primer valor de ese mes.
+def custom_resampler(array_like):
+    """ Returns the first value of the period """
+    return array_like[0]
+first_of_month_prices = prices.resample('M', how=custom_resampler)
+print(first_of_month_prices.head(10))
+print()
+
+# ajustamos la zona horaria de una serie para adaptar el tiempo de los
+# datos del mundo real. En nuestro caso, nuestra serie temporal ya está
+# localizada en UTC, pero digamos que queremos ajustar la hora para que
+# sea 'US / Eastern'.
+eastern_prices = prices.tz_convert('US/Eastern')
+print(eastern_prices.head(10))
+print()
+
+# precios para cada día calendario
+# para realizar esto, debemos crear primero, creamos un nuevo
+# DatetimeIndex que contenga todo lo que queramos
+calendar_dates = pd.date_range(start=start, end=end, freq='D', tz='UTC')
+print (calendar_dates)
+print()
+
+# reindexar nuestra serie temporal
+# el precio del fin de semana o de vacaciones se indicará como el precio
+# del último día de mercado que conocemos.
+calendar_prices = prices.reindex(calendar_dates, method='ffill')
+print(calendar_prices.head(15))
+print()
+
+#---------------------------Datos perdidos---------------------------
+print("                     Datos perdidos")
+# fillna(): completa los datos faltantes
+meanfilled_prices = calendar_prices.fillna(calendar_prices.mean())
+print(meanfilled_prices.head(10))
+print()
+
+# usamos "relleno hacia atrás", donde los NaN se llenan con el siguiente valor lleno
+bfilled_prices = calendar_prices.fillna(method='bfill')
+print(bfilled_prices.head(10))
+print()
+
+# los dos metodos anteriores poseian demasiado sesgo, por lo tanto
+# el metodo dropna() nos propone: soltar los datos faltantes
+dropped_prices = calendar_prices.dropna()
+print(dropped_prices.head(10))
+print()
+
+#----------------Análisis de series temporales con pandas---------------------
+print("          Análisis de series temporales con pandas")
+# grafica
+prices.plot();
+# Todavía tenemos que agregar las etiquetas de los ejes y el título
+plt.title(symbol + " Prices")
+plt.ylabel("Price")
+plt.xlabel("Date");
+
+# calcula la media y la desviacion estandar
+print ("Media: ", prices.mean())
+print ("Dsviacion Estandar: ", prices.std())
+
+# estadisticas descirptivas integradas a traves del metodo describe()
+print ("Estadísticas de resumen")
+print (prices.describe())
+
+# modificamos fácilmente series con escalares utilizando nuestros operadores
+# matemáticos básicos.
+modified_prices = prices * 2 - 10
+print(modified_prices.head(5))
+
+# creamos combinaciones lineales de series usando los operadores matemáticos
+# básicos.
+noisy_prices = prices + 5 * pd.Series(np.random.normal(0, 5, len(prices)), index=prices.index) + 20
+print(noisy_prices.head(5))
+
+# si no hay índices que concuerden, podemos obtener una serie vacía a cambio
+empty_series = prices + pd.Series(np.random.normal(0, 1, len(prices)))
+print(empty_series.head(5))
+
+# vemos sus diferencias de primer orden o cambio porcentual
+add_returns = prices.diff()[1:]
+mult_returns = prices.pct_change()[1:]
+# grafica
+plt.title("Multiplicar devoluciones de " + symbol)
+plt.xlabel("Fecha")
+plt.ylabel("porcentaje de devoluciones")
+mult_returns.plot();
+
+# calcula los medios de rodadura y las desviaciones estándar
+rolling_mean = pd.rolling_mean(prices, 30)
+rolling_mean.name = "Media móvil de 30 días"
+# grafica
+prices.plot()
+rolling_mean.plot()
+plt.title(symbol + "Precio")
+plt.xlabel("Fecha")
+plt.ylabel("Precio")
+plt.legend();
+
+rolling_std = pd.rolling_std(prices, 30)
+rolling_std.name = "Volatilidad de 30 días"
+rolling_std.plot()
+plt.title(rolling_std.name);
+plt.xlabel("Fecha")
+plt.ylabel("Desviacion Estandar");
+
+# calcula la mediana
+print (np.median(mult_returns))
+
+# otra forma de calcular la mediana
+print (mult_returns.median())
+
+#--------------------------------DataFrames--------------------------------
+print("                         DataFrames")
+# DataFrame: son objetos de 2 dimensiones, con indice y atibuto de
+# columnas
+# creamos un DataFrame con ayuda de un diccionario
+dict_data = {
+    'a' : [1, 2, 3, 4, 5],
+    'b' : ['L', 'K', 'J', 'M', 'Z'],
+    'c' : np.random.normal(0, 1, 5)
+}
+print (dict_data)
+
+# incluimos fácilmente un índice de objetos Timestamp
+frame_data = pd.DataFrame(dict_data, index=pd.date_range('2016-01-01', periods=5))
+print (frame_data)
+
+# combinamos Series (concatenamos)
+s_1 = pd.Series([2, 4, 6, 8, 10], name='Evens')
+s_2 = pd.Series([1, 3, 5, 7, 9], name="Odds")
+numbers = pd.concat([s_1, s_2], axis=1)
+print (numbers)
+
+# Cada DataFrame también tiene un atributo de columnas
+print (numbers.columns)
+
+# modificar las columnas después de la creación del objeto
+numbers.columns = ['Shmevens', 'Shmodds']
+print (numbers)
+
+# el índice de un DataFrame se puede cambiar
+print (numbers.index)
+numbers.index = pd.date_range("2016-01-01", periods=len(numbers))
+print (numbers)
+
+# accedemos directamente a los valores que contienen mirando el atributo de valores
+print(numbers.values)
+print()
+
+#---------------------------Acceder a elementos de DataFrame--------------------------------
+print("                     Acceder a elementos de DataFrame")
+# accedemos a los elementos de DataFrames
+symbol = ["CMG", "MCD", "SHAK", "WFM"]
+start = "2012-01-01"
+end = "2016-01-01"
+prices = get_pricing(symbol, start_date=start, end_date=end, fields="price")
+if isinstance(symbol, list):
+    prices.columns = map(lambda x: x.symbol, prices.columns)
+else:
+    prices.name = symbol
+
+# accedemos directamente a la columna CMG
+print(prices.CMG.head())
+
+#usamos loc [] para acceder a una columna individual
+print(prices.loc[:, 'CMG'].head())
+
+# pasamos una tupla en el método loc []
+print(prices.loc[:, ['CMG', 'MCD']].head())
+
+# acceder al DataFrame por valor de índice usando loc []
+print(prices.loc['2015-12-15':'2015-12-22'])
+
+# accedemos a las listas de columnas
+print(prices.loc['2015-12-15':'2015-12-22', ['CMG', 'MCD']])
+
+# usamos iloc [] también funciona de manera similar
+print(prices.iloc[0:2, 1])
+
+# Precios de acceso con índice entero en
+# [1, 3, 5, 7, 9, 11, 13, ..., 99]
+# y en la columna 0 o 3
+prices.iloc[[1, 3, 5] + range(7, 100, 2), [0, 3]].head(20)
+print()
+
+#-------------------------------Indexación booleana----------------------------------
+print("                         Indexación booleana")
+# se utiliza para filtrar un DataFrame según un conjunto de criterios
+print(prices.loc[prices.MCD > prices.WFM].head())
+
+# se pueden agregar multiples operadores booleanos
+print(prices.loc[(prices.MCD > prices.WFM) & ~prices.SHAK.isnull()].head())
+print()
+
+#---------------Agregar, eliminar columnas, combinar DataFrames / Series-------------
+print("         Agregar, eliminar columnas, combinar DataFrames / Series")
+# agregamos una nueva columna
+s_1 = get_pricing('TSLA', start_date=start, end_date=end, fields='price')
+prices.loc[:, 'TSLA'] = s_1
+print(prices.head(5))
+
+# quitar una columna
+prices = prices.drop('TSLA', axis=1)
+print(prices.head(5))
+
+# combinar múltiples DataFrames en uno, usamos el método pandas.concat()
+df_1 = get_pricing(['SPY', 'VXX'], start_date=start, end_date=end, fields='price')
+df_2 = get_pricing(['MSFT', 'AAPL', 'GOOG'], start_date=start, end_date=end, fields='price')
+df_3 = pd.concat([df_1, df_2], axis=1)
+print(df_3.head())
+print()
+
+#----------------------------Datos perdidos (nuevamente)--------------------
+print("                      Datos perdidos (nuevamente)")
+# traer datos
+filled0_prices = prices.fillna(0)
+print(filled0_prices.head(5))
+bfilled_prices = prices.fillna(method='bfill')
+print(bfilled_prices.head(5))
+
+# dejamos caer los valores perdidos
+dropped_prices = prices.dropna()
+print(dropped_prices.head(5))
+print()
+
+#-----------------------Análisis de series temporales con pandas------------
+print("                 Análisis de series temporales con pandas")
+# grafica
+prices.plot()
+plt.title("Collected Stock Prices")
+plt.ylabel("Price")
+plt.xlabel("Date");
+
+# calculamos fácilmente la media de cada columna
+print(prices.mean(axis=0))
+
+# desviación estándar
+print(prices.std(axis=0))
+
+# proporciona estadísticas de resumen de nuestros datos
+print(prices.describe())
+
+# podemos escalar y agregar escalares
+print((2 * prices - 50).head(5))
+
+# retornos multiplicativos de los valores que estamos viendo
+mult_returns = prices.pct_change()[1:]
+print(mult_returns.head())
+
+# estandarizamos los retornos
+# grafica
+norm_returns = (mult_returns - mult_returns.mean(axis=0))/mult_returns.std(axis=0)
+norm_returns.loc['2014-01-01':'2015-01-01'].plot();
+
+# medios de balanceo y las desviaciones estándar
+rolling_mean = pd.rolling_mean(prices, 30)
+rolling_mean.columns = prices.columns
+# grafica
+rolling_mean.plot()
+plt.title("Rolling Mean of Prices")
+plt.xlabel("Date")
+plt.ylabel("Price")
+plt.legend();

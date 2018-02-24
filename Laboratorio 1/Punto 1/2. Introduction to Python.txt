@@ -1,0 +1,459 @@
+import math
+
+#Lecture 2 - Introduction to Python
+
+#-------------------------------Comentarios-------------------------------
+# This is a comment
+# These lines of code will not change any values
+# Anything following the first # is not run as code
+
+""" This is a special string """
+
+#-------------------------------Variables-------------------------------
+print("                         Variables")
+my_integer = 50
+print (my_integer, type(my_integer))
+
+one = 1
+print (one)
+
+my_float = 1.0
+print (my_float, type(my_float))
+my_float = float(1)
+print (my_float, type(my_float))
+
+my_int = int(3.14159)
+print (my_int, type(my_int))
+
+my_string = 'This is a string with single quotes'
+print (my_string)
+my_string = "This is a string with double quotes"
+print (my_string)
+
+my_string = '"Jabberwocky", by Lewis Carroll'
+print (my_string)
+my_string = "'Twas brillig, and the slithy toves / Did gyre and gimble in the wabe;"
+print (my_string)
+
+my_bool = True
+print (my_bool, type(my_bool))
+print()
+
+#-------------------------------Matematica Basica-------------------------------
+print("                         Matematica Basica")
+print ('Suma: ', 2 + 2)
+print ('Resta: ', 7 - 4)
+print ('Multiplicacion: ', 2 * 5)
+print ('Division: ', 10 / 2)
+print ('Exponenciacion: ', 3**2)
+
+print ('Modulo: ', 15 % 4)
+
+first_integer = 4
+second_integer = 5
+print (first_integer * second_integer)
+
+first_integer = 11
+second_integer = 3.8
+print (first_integer / second_integer)
+
+suma = [1,2,3,4,5]
+print(abs(first_integer - second_integer))
+print(round(first_integer - second_integer))
+print(max(first_integer, second_integer))
+print(min(first_integer, second_integer))
+print(sum(suma))
+
+print ('Pi: ', math.pi)
+print ("Euler: ", math.e)
+
+print ('Coseno de pi: ', math.cos(math.pi))
+print()
+
+#------------------------------------Listas------------------------------------
+print("                              Listas")
+my_list = [1, 2, 3]
+print (my_list)
+
+print (my_list[0])
+print (my_list[2])
+
+print ('The first, second, and third list elements: ', my_list[0], my_list[1], my_list[2])
+#error, elemento con indice = 3 no existe
+#print ('Accessing outside the list bounds causes an error: ', my_list[3])
+
+print (len(my_list))
+
+print (my_list)
+my_list[0] = 42
+print (my_list)
+
+my_string = "Los Strings nunca cambian"
+#Error, no se pueden modificar los Strings
+#my_string[0] = 'Z'
+
+my_list_2 = ['one', 'two', 'three']
+print (my_list_2)
+
+my_list_3 = [True, 'False', 42]
+
+my_list_4 = my_list + my_list_2 + my_list_3
+print (my_list_4)
+
+my_list = ['friends', 'romans', 'countrymen', 'lend', 'me', 'your', 'ears']
+print()
+
+#-------------------------------Rebanando - Slicing-------------------------------
+print("Rebanando - Slicing")
+print (my_list[2:4])
+print (my_list[1:])
+print (my_list[:4])
+print (my_list[-1])
+
+#salta de dos en dos, con limite o sin el
+print (my_list[0:7:2])
+print (my_list[::2])
+print (my_list[:])
+
+#invierte la cadena
+print (my_list[::-1])
+
+#range: genera una lista de numeros
+b = 10
+my_list = range(b)
+print (my_list)
+
+a = 0
+b = 10
+my_list = range(a, b)
+print (my_list)
+
+a = 0
+b = 10
+step = 2
+my_list = range(a, b, step)
+print (my_list)
+print()
+
+#-------------------------------Tuplas-------------------------------
+print("                         Tuplas")
+my_tuple = 'I', 'have', 30, 'cats'
+print (my_tuple)
+
+my_tuple = ('I', 'have', 30, 'cats')
+print (my_tuple)
+
+#Las listas no se pueden modificar
+#my_tuple[3] = 'dogs'
+
+print (my_tuple[1:3])
+
+my_other_tuple = ('make', 'that', 50)
+print (my_tuple + my_other_tuple)
+
+str_1, str_2, int_1 = my_other_tuple
+print (str_1, str_2, int_1)
+print()
+
+#-------------------------------Conjuntos-------------------------------
+print("                         Conjuntos")
+things_i_like = {'dogs', 7, 'the number 4', 4, 4, 4, 42, 'lizards', 'man I just LOVE the number 4'}
+print (things_i_like, type(things_i_like))
+
+animal_list = ['cats', 'dogs', 'dogs', 'dogs', 'lizards', 'sponges', 'cows', 'bats', 'sponges']
+animal_set = set(animal_list)
+print (animal_set) # Elimina todas las instancias adicionales (repetidos) de la lista
+
+print (len(animal_set))
+
+print('cats' in animal_set) # Aquí verificamos si el elemento esta en la lista
+
+print (animal_set | things_i_like) # Union
+
+print (animal_set & things_i_like) # Interseccion
+print()
+
+#-------------------------------Diccionarios-------------------------------
+print("                         Diccionarios")
+my_dict = {"High Fantasy": ["Wheel of Time", "Lord of the Rings"],
+           "Sci-fi": ["Book of the New Sun", "Neuromancer", "Snow Crash"],
+           "Weird Fiction": ["At the Mountains of Madness", "The House on the Borderland"]}
+
+print (my_dict["Sci-fi"])
+
+my_dict["Sci-fi"] = "I can't read"
+print (my_dict["Sci-fi"])
+
+my_dict["Historical Fiction"] = ["Pillars of the Earth"]
+print (my_dict["Historical Fiction"])
+
+print (my_dict)
+print()
+
+#-------------------------------Cadena Shenanigans-------------------------------
+print("                         Cadena Shenanigans")
+first_string = '"Beware the Jabberwock, my son! /The jaws that bite, the claws that catch! /'
+second_string = 'Beware the Jubjub bird, and shun /The frumious Bandersnatch!"/'
+third_string = first_string + second_string
+print (third_string)
+
+my_string = 'Supercalifragilisticexpialidocious'
+print ('The first letter is: ', my_string[0]) # mayuscula S
+print ('The last letter is: ', my_string[-1]) # minuscula s
+print ('The second to last letter is: ', my_string[-2]) # minuscula u
+print ('The first five characters are: ', my_string[0:5]) # Remember: slicing doesn't include the final element!
+print ('Reverse it!: ', my_string[::-1])
+
+#cuenta el numero de i's o de la palabra li
+print ('Count of the letter i in Supercalifragilisticexpialidocious: ', my_string.count('i'))
+print ('Count of "li" in the same word: ', my_string.count('li'))
+
+#busca la posicion con la primera aparicion de la i
+print ('The first time i appears is at index: ', my_string.find('i'))
+
+#cabia las i's por a's
+print ("All i's are now a's: ", my_string.replace('i', 'a'))
+
+print ("It's raining cats and dogs".replace('dogs', 'more cats'))
+
+my_string = "I can't hear you"
+print (my_string.upper())   #mayuscula
+my_string = "I said HELLO"
+print (my_string.lower())   #minuscula
+print()
+
+#-------------------------------Formato de cadena-------------------------------
+print("                         Formato de cadena")
+my_string = "{0} {1}".format('Marco', 'Polo')
+print (my_string)
+
+my_string = "{2} {1} {0}".format('Marco', 'Polo', 'R')
+print (my_string)
+
+#%s es el operador de formateo de cadenas
+print ('insert %s here' % 'value')
+
+print ('There are %s cats in my %s' % (13, 'apartment'))
+print()
+
+#-------------------------------Logica Basica-------------------------------
+print("                         Logica Basica")
+print (5 == 5)
+
+print (5 > 5)
+
+m = 2
+n = 23
+print (m < n)
+
+statement_1 = 10 > 2
+statement_2 = 4 <= 6
+print ("Statement 1 truth value: {0}".format(statement_1))
+print ("Statement 2 truth value: {0}".format(statement_2))
+print ("Statement 1 and Statement 2: {0}".format(statement_1 and statement_2))
+
+print ((2 < 3) and (3 > 0)) or ((5 > 6) and not (4 < 2))
+
+print (bool(''))
+
+print (bool('I have character!'))
+
+print (bool([]))
+
+print (bool([1, 2, 3]))
+print()
+
+#-----------------------------Declaraciones if-----------------------------
+print ("                    Declaraciones if")
+i = 4
+if i == 5:
+    print ('The variable i has a value of 5')
+
+i = 4
+if i == 5:
+    print ("All lines in this indented block are part of this block")
+    print ('The variable i has a value of 5')
+else:
+    print ("All lines in this indented block are part of this block")
+    print ('The variable i is not equal to 5')
+
+i = 1
+if i == 1:
+    print ('The variable i has a value of 1')
+elif i == 2:
+    print ('The variable i has a value of 2')
+elif i == 3:
+    print ('The variable i has a value of 3')
+else:
+    print ("I don't care what i is")
+
+i = 10
+if i % 2 == 0:
+    if i % 3 == 0:
+        print ('i is divisible by both 2 and 3! Wow!')
+    elif i % 5 == 0:
+        print ('i is divisible by both 2 and 5! Wow!')
+    else:
+        print ('i is divisible by 2, but not 3 or 5. Meh.')
+else:
+    print ('I guess that i is an odd number. Boring.')
+
+i = 5
+j = 12
+if i < 10 and j > 11:
+    print ('{0} is less than 10 and {1} is greater than 11! How novel and interesting!'.format(i, j))
+
+my_string = "Carthago delenda est"
+if my_string == "Carthago delenda est":
+    print ('And so it was! For the glory of Rome!')
+else:
+    print ('War elephants are TERRIFYING. I am staying home.')
+
+if 'a' in my_string or 'e' in my_string:
+    print ('Those are my favorite vowels!')
+print()
+
+#-----------------------------------Bucles----------------------------------
+print("                             Bucles")
+i = 5
+while i > 0: # We can write this as 'while i:' because 0 is False!
+    i -= 1
+    print ('I am looping! {0} more to go!'.format(i))
+
+for i in range(5):
+    print ('I am looping! I have looped {0} times!'.format(i + 1))
+
+my_list = {'cats', 'dogs', 'lizards', 'cows', 'bats', 'sponges', 'humans'}  # Lists all the animals in the world
+mammal_list = {'cats', 'dogs', 'cows', 'bats', 'humans'}  # Lists all the mammals in the world
+my_new_list = set()
+for animal in my_list:
+    if animal in mammal_list:
+        # This adds any animal that is both in my_list and mammal_list to my_new_list
+        my_new_list.add(animal)
+print (my_new_list)
+
+i = 10
+while True:
+    if i == 14:
+        break
+    i += 1 # This is shorthand for i = i + 1. It increments i with each iteration.
+    print (i)
+
+for i in range(5):
+    if i == 2:
+        break
+    print (i)
+
+i = 0
+while i < 5:
+    i += 1
+    if i == 3:
+        continue
+    print (i)
+
+for i in range(5):
+    loop_string = 'I transcend the loop!'
+    print ('I am eternal! I am {0} and I exist everywhere!'.format(i))
+
+print ('I persist! My value is {0}'.format(i))
+print (loop_string)
+
+my_dict = {'firstname' : 'Inigo', 'lastname' : 'Montoya', 'nemesis' : 'Rugen'}
+
+for key in my_dict:
+    print (key)
+
+for key in my_dict:
+    print (my_dict[key])
+
+#Error: un objeto dict no es iterable
+"""for key, value in my_dict.iteritems():
+    print (key, ':', value)"""
+print()
+
+#-------------------------------Funciones-------------------------------
+print("                         Funciones")
+def hello_world():
+    """ Prints Hello, world! """
+    print ('Hello, world!')
+hello_world()
+
+for i in range(5):
+    hello_world()
+
+def see_the_scope():
+    in_function_string = "I'm stuck in here!"
+see_the_scope()
+#Error: se crea la variable dentro de la funcion y la desconoce fuera de ella
+#print (in_function_string)
+
+def free_the_scope():
+    in_function_string = "Anything you can do I can do better!"
+    return in_function_string
+my_string = free_the_scope()
+print (my_string)
+
+def multiply_by_five(x):
+    """ Multiplies an input number by 5 """
+    return x * 5
+
+n = 4
+print (n)
+print (multiply_by_five(n))
+
+def calculate_area(length, width):
+    """ Calculates the area of a rectangle """
+    return length * width
+
+l = 5
+w = 10
+print ('Area: ', calculate_area(l, w))
+print ('Length: ', l)
+print ('Width: ', w)
+
+def calculate_volume(length, width, depth):
+    """ Calculates the volume of a rectangular prism """
+    return length * width * depth
+
+#*args : numero ilimitado de parametros
+def sum_values(*args):
+    sum_val = 0
+    for i in args:
+        sum_val += i
+    return sum_val
+
+print (sum_values(1, 2, 3))
+print (sum_values(10, 20, 30, 40, 50))
+print (sum_values(4, 2, 5, 1, 10, 249, 25, 24, 13, 6, 4))
+
+def test_args(*args):
+    print (args)
+    print(type(args))
+test_args(1, 2, 3, 4, 5, 6)
+
+
+def has_a_vowel(word):
+    vowel_list = ['a', 'e', 'i', 'o', 'u']
+    for vowel in vowel_list:
+        if vowel in word:
+            return True
+    return False
+
+my_word = 'catnapping'
+if has_a_vowel(my_word):
+    print ('How surprising, an english word contains a vowel.')
+else:
+    print ('This is actually surprising.')
+
+def point_maker(x, y):
+    """ Groups x and y values into a point, technically a tuple """
+    return x, y
+
+a = point_maker(0, 10)
+b = point_maker(5, 3)
+def calculate_slope(point_a, point_b):
+    """ Calculates the linear slope between two points """
+    return (point_b[1] - point_a[1])/(point_b[0] - point_a[0])
+print ("The slope between a and b is {0}".format(calculate_slope(a, b)))
+
+print ("The slope-intercept form of the line between a and b, using point a, is: y - {0} = {2}(x - {1})".format(a[1], a[0], calculate_slope(a, b)))
