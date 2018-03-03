@@ -5,21 +5,32 @@ Escritos en lenguaje C, C++ y Java, donde en cada lenguaje retorna lo siguiente:
 ## C ##
 
 SERIE DE FIBONACCI
+
 El tipo de dato short entro a overflow con un n = 24
+
 El tipo de dato int entro a overflow con un n = 47
+
 El tipo de dato long entro a overflow con un n = 47
 
-# C++ #
+
+## C++ ##
 
 SERIE DE FIBONACCI
+
 El tipo de dato short entro a overflow con un n = 24
+
 El tipo de dato int entro a overflow con un n = 47
+
 El tipo de dato long entro a overflow con un n = 47
 
-# Java #
+## Java ##
 
 SERIE DE FIBONACCI
+
 El tipo de dato byte entró a overflow con un n = 12
+
 El tipo de dato short entr a overflow con un n = 24
+
 El tipo de dato int entró a overflow con un n = 47
+
 El tipo de dato long entró a overflow con un n = 49
