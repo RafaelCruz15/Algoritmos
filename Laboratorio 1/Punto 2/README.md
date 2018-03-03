@@ -1,8 +1,25 @@
-# Quantopian #
+# Fibonacci #
 
-Lecturas de la pagina web https://www.quantopian.com/lectures
-1. Lecture 1 Introduction to Research
-2. Lecture 2 Introduction to Python
-3. Lecture 3 Introduction to NumPy
-4. Lecture 4 Introduction to pandas
-5. Lecture 5 Plotting Data
+Escritos en lenguaje C, C++ y Java, donde en cada lenguaje retorna lo siguiente:
+
+# C #
+h
+SERIE DE FIBONACCI
+El tipo de dato short entro a overflow con un n = 24
+El tipo de dato int entro a overflow con un n = 47
+El tipo de dato long entro a overflow con un n = 47
+
+# C++ #
+
+SERIE DE FIBONACCI
+El tipo de dato short entro a overflow con un n = 24
+El tipo de dato int entro a overflow con un n = 47
+El tipo de dato long entro a overflow con un n = 47
+
+# Java #
+
+SERIE DE FIBONACCI
+El tipo de dato byte entró a overflow con un n = 12
+El tipo de dato short entr a overflow con un n = 24
+El tipo de dato int entró a overflow con un n = 47
+El tipo de dato long entró a overflow con un n = 49
