@@ -2,12 +2,15 @@
 
 Escritos en lenguaje C, C++, Java y Phyton, donde en cada lenguaje se utilizan 10 valores promedio de acuerdo al tamaño de 400 datos, lo cual retorna lo siguiente en mi laptop:
 
-(Los resultados del servidor están en el código (.c, .cpp o .java) o netbook (python))
+Nota:
+
+1. Los resultados del servidor están en el código (.c, .cpp o .java) o netbook (python)
+2. Lenguajes como Java no utilizan numpy en su defecto usamos ND4J
 
 ## C ##
 ## C++ ##
 ## Java ##
-## Python ##
+## Python (utilizando numpy) ##
 
 El tiempo para  0  es de  0.03125286102294922
 
