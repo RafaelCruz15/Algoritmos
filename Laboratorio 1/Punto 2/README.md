@@ -2,8 +2,8 @@
 
 Escritos en lenguaje C, C++ y Java, donde en cada lenguaje retorna lo siguiente:
 
-# C #
-h
+## C ##
+
 SERIE DE FIBONACCI
 El tipo de dato short entro a overflow con un n = 24
 El tipo de dato int entro a overflow con un n = 47
