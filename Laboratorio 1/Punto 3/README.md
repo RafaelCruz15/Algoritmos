@@ -1,35 +1,29 @@
 # Matrix #
 
-Escritos en lenguaje C, C++, Java y Phyton, donde en cada lenguaje se utilizan 10 valores promedio de acuerdo al tamaño de 400 datos, lo cual retorna lo siguiente en mi laptop:
+Escritos en lenguaje C, C++, Java y Phyton, donde en cada lenguaje se utilizan 15 valores promedio de acuerdo al tamaño (n = 50, 100, 150, 200, ... , 500), lo cual retorna lo siguiente en mi laptop:
+
+## Python (utilizando numpy) ##
+
+El tiempo para  n = 50  es de 0.00013338724772135417
+
+El tiempo para  n = 100  es de 0.003084119160970052
+
+El tiempo para  n = 150  es de 0.00431054433186849
+
+El tiempo para  n = 200  es de 0.01398903528849284
+
+El tiempo para  n = 250  es de 0.030831670761108397
+
+El tiempo para  n = 300  es de 0.06154131889343262
+
+El tiempo para  n = 350  es de 0.10424903233846029
+
+El tiempo para  n = 400  es de 0.15325913429260254
+
+El tiempo para  n = 450  es de 0.2883179187774658
+
+El tiempo para  n = 500  es de 0.41065686543782554
 
 Nota:
 
-1. Los resultados del servidor están en el código (.c, .cpp o .java) o netbook (python)
-2. Lenguajes como Java no utilizan numpy en su defecto usamos ND4J
-
-## C ##
-## C++ ##
-## Java ##
-## Python (utilizando numpy) ##
-
-El tiempo para  0  es de  0.03125286102294922
-
-El tiempo para  40  es de  0.0
-
-El tiempo para  80  es de  0.0
-
-El tiempo para  120  es de  0.0
-
-El tiempo para  160  es de  0.015624523162841797
-
-El tiempo para  200  es de  0.0156252384185791
-
-El tiempo para  240  es de  0.03125166893005371
-
-El tiempo para  280  es de  0.03125166893005371
-
-El tiempo para  320  es de  0.07812905311584473
-
-El tiempo para  360  es de  0.07812857627868652
-
-El tiempo para  400  es de  0.12500643730163574
+Los demás lenguajes (C, C++ y Java) tienen salidas de IDE's diferentes
