@@ -1,6 +1,6 @@
 # Matrix #
 
-Escritos en lenguaje C, C++, Java y Phyton, donde en cada lenguaje se utilizan 15 valores promedio de acuerdo al tamaño (n = 50, 100, 150, 200, ... , 500), lo cual retorna lo siguiente en mi laptop:
+Escrito en Phyton, donde por cada lenguaje se utilizan 15 valores promedio de acuerdo al tamaño (n = 50, 100, 150, 200, ... , 500), lo cual retorna lo siguiente en mi laptop:
 
 ## Python (utilizando numpy) ##
 
@@ -24,6 +24,6 @@ El tiempo para  n = 450  es de 0.2883179187774658
 
 El tiempo para  n = 500  es de 0.41065686543782554
 
-Nota:
+### Nota:
 
-Los demás lenguajes (C, C++ y Java) tienen salidas de IDE's diferentes
+Los demás lenguajes (C, C++ y Java) tienen salidas de IDE's diferentes, en sus respectivos codigos.
