@@ -1,6 +1,6 @@
 # Taller 0
 
-* Punto 1
+*Punto 1
 Complete los volteos y el número de volteos para las permutaciones de elementos 4 y 5 en los archivos pancakes4.xls , pancakes4.xml , pancakes5.xls y pancakes5.xml
 
 * Punto 2
